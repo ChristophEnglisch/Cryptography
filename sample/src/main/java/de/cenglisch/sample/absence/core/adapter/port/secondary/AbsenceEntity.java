@@ -1,8 +1,8 @@
 package de.cenglisch.sample.absence.core.adapter.port.secondary;
 
+import de.cenglisch.cryptography.DsgvoRelevant;
+import de.cenglisch.cryptography.pseudonymization.Pseudonymize;
 import de.cenglisch.sample.absence.core.domain.TypeOfAbsence;
-import de.cenglisch.sample.common.adapter.port.secondary.database.cryptography.pseudonymization.Pseudonymize;
-import de.cenglisch.sample.common.domain.DsgvoRelevant;
 import de.cenglisch.sample.employees.core.adapter.port.secondary.database.EmployeeEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
