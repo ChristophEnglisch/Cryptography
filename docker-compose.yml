@@ -1,0 +1,15 @@
+version: '3.3'
+services:
+  database:
+    image: postgres:16.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=database
+      - POSTGRES_PASSWORD=database
+    ports:
+      - '5432:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+volumes:
+  db-data:
+    driver: local

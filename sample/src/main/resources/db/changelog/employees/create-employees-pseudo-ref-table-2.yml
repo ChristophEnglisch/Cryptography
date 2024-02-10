@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-employees-pseudo-ref-table-2
+      author: cenglisch
+      changes:
+        - createTable:
+            tableName: employees_ref_pseudo
+            columns:
+              - column:
+                  name: id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: pseudonymized_reference
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: crypted_timestamp
+                  type: varchar(255)
+                  constraints:
+                    nullable: false

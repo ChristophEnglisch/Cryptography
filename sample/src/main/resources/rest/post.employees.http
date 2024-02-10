@@ -1,0 +1,48 @@
+### Test 1 - Hire Employee with Valid Data
+POST http://localhost:8080/employees
+Content-Type: application/json
+
+{
+  "firstName": "Christoph",
+  "lastName": "Englisch",
+  "birthday": "1990-01-01",
+  "role": "EMPLOYEE"
+}
+
+### Test 2 - Hire Employee with Missing First Name
+POST http://localhost:8080/employees
+Content-Type: application/json
+
+{
+  "lastName": "Smith",
+  "birthday": "1985-05-15",
+  "role": "BACK_OFFICE"
+}
+
+### Test 3 - Hire Employee with Invalid Date Format
+POST http://localhost:8080/employees
+Content-Type: application/json
+
+{
+  "firstName": "Alice",
+  "lastName": "Johnson",
+  "birthday": "20-10-1992",
+  "role": "EMPLOYEE"
+}
+
+### Test 4 - Hire Employee with Non-Existent Role
+POST http://localhost:8080/employees
+Content-Type: application/json
+
+{
+  "firstName": "Bob",
+  "lastName": "Brown",
+  "birthday": "1980-03-30",
+  "role": "CEO"
+}
+
+### Test 5 - Hire Employee with Empty Payload
+POST http://localhost:8080/employees
+Content-Type: application/json
+
+{}

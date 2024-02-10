@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-absences-table-1
+      author: cenglisch
+      changes:
+        - createTable:
+            tableName: absences
+            columns:
+              - column:
+                  name: id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: employee_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type_of_absence
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reason
+                  type: varchar(255)
+                  constraints:
+                    nullable: true

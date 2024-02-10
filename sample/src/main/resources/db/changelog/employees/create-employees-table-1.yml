@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-employees-table-1
+      author: cenglisch
+      changes:
+        - createTable:
+            tableName: employees
+            columns:
+              - column:
+                  name: id
+                  type: varchar(100)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: varchar(100)
+              - column:
+                  name: last_name
+                  type: varchar(100)
+              - column:
+                  name: birthday
+                  type: date
+              - column:
+                  name: role
+                  type: varchar(30)

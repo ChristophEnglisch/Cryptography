@@ -1,0 +1,5 @@
+GET http://localhost:8080/absences
+
+###
+GET http://localhost:8080/absences?employee-id=6f3bbab7-a468-433a-8261-005a3db05019
+
