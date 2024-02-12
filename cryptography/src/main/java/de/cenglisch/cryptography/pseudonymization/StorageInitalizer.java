@@ -1,4 +1,4 @@
-package de.cenglisch.cryptography.storage;
+package de.cenglisch.cryptography.pseudonymization;
 
 import de.cenglisch.cryptography.decryption.Decrypter;
 import org.springframework.stereotype.Component;

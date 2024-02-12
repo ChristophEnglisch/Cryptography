@@ -1,7 +1,7 @@
 package de.cenglisch.cryptography;
 
-import de.cenglisch.cryptography.encryption.EncryptionService;
-import de.cenglisch.cryptography.pseudonymization.DecryptionService;
+import de.cenglisch.cryptography.dsgvo.DsgvoEncryptionService;
+import de.cenglisch.cryptography.dsgvo.DsgvoDecryptionService;
 import de.cenglisch.cryptography.pseudonymization.DissolvePseudonimizationService;
 import de.cenglisch.cryptography.pseudonymization.PseudonymizationService;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -17,14 +17,14 @@ public class CryptographyAspect {
 
     private final PseudonymizationService pseudonymizationService;
     private final DissolvePseudonimizationService dissolvePseudonimization;
-    private final EncryptionService encryptionService;
-    private final DecryptionService decryptionService;
+    private final DsgvoEncryptionService dsgvoEncryptionService;
+    private final DsgvoDecryptionService dsgvoDecryptionService;
 
-    public CryptographyAspect(PseudonymizationService pseudonymizationService, DissolvePseudonimizationService dissolvePseudonimization, EncryptionService encryptionService, DecryptionService decryptionService) {
+    public CryptographyAspect(PseudonymizationService pseudonymizationService, DissolvePseudonimizationService dissolvePseudonimization, DsgvoEncryptionService dsgvoEncryptionService, DsgvoDecryptionService dsgvoDecryptionService) {
         this.pseudonymizationService = pseudonymizationService;
         this.dissolvePseudonimization = dissolvePseudonimization;
-        this.encryptionService = encryptionService;
-        this.decryptionService = decryptionService;
+        this.dsgvoEncryptionService = dsgvoEncryptionService;
+        this.dsgvoDecryptionService = dsgvoDecryptionService;
     }
 
     @Before("execution(* org.springframework.data.repository.CrudRepository.save(..)) && args(entity)")
@@ -32,7 +32,7 @@ public class CryptographyAspect {
         Arrays.stream(entity.getClass().getDeclaredFields())
                 .forEach(field -> {
                     pseudonymizationService.processField(entity, field);
-                    encryptionService.processField(entity, field);
+                    dsgvoEncryptionService.processField(entity, field);
                 });
     }
 
@@ -48,7 +48,7 @@ public class CryptographyAspect {
     @AfterReturning(pointcut = "execution(* org.springframework.data.repository.CrudRepository.save(..)) || execution(* org.springframework.data.repository.CrudRepository.findById(..))", returning = "result")
     public void postSingleObject(Object result) {
         dissolvePseudonimization.processEntity(result);
-        decryptionService.processEntity(result);
+        dsgvoDecryptionService.processEntity(result);
     }
 
     @AfterReturning(pointcut = "execution(* org.springframework.data.repository.Repository+.*(..)) && !execution(* org.springframework.data.repository.CrudRepository.save(..)) && !execution(* org.springframework.data.repository.CrudRepository.findById(..))", returning = "result")
@@ -56,7 +56,7 @@ public class CryptographyAspect {
         if (result instanceof Iterable<?>) {
             ((Iterable<?>) result).forEach(entity -> {
                 dissolvePseudonimization.processEntity(entity);
-                decryptionService.processEntity(entity);
+                dsgvoDecryptionService.processEntity(entity);
             });
         }
     }

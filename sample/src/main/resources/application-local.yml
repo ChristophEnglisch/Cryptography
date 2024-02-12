@@ -4,10 +4,11 @@ spring:
     username: database
     password: database
 
-pseudonymize:
-  active: true
-
-app:
+cryptography:
   encryption:
-    key: wHMNHGqMwXu9w6PieCxripiJIhcGMySwMgbBop991HU=
+    key: wHMNHGqMwXu9w6PieCxripiJIhcGMySwMgbBop991HU
     algorithm: AES-GCM
+  pseudonymize:
+    active: true
+  dsgvo-encryption:
+    active: true

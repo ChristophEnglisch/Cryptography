@@ -1,4 +1,4 @@
-package de.cenglisch.cryptography;
+package de.cenglisch.cryptography.dsgvo;
 
 public enum Schutzbedarfsstufe {
     GERING,

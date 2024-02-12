@@ -1,17 +1,18 @@
-package de.cenglisch.cryptography.encryption;
+package de.cenglisch.cryptography.dsgvo;
 
 import de.cenglisch.cryptography.CryptographyHelper;
+import de.cenglisch.cryptography.encryption.Encrypter;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 
 @Component
-public class EncryptionService {
+public class DsgvoEncryptionService {
 
     private final CryptographyHelper cryptographyHelper;
     private final Encrypter encrypter;
 
-    public EncryptionService(CryptographyHelper cryptographyHelper, Encrypter encrypter) {
+    public DsgvoEncryptionService(CryptographyHelper cryptographyHelper, Encrypter encrypter) {
         this.cryptographyHelper = cryptographyHelper;
         this.encrypter = encrypter;
     }

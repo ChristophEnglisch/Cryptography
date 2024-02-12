@@ -1,4 +1,4 @@
-package de.cenglisch.cryptography.storage;
+package de.cenglisch.cryptography.pseudonymization;
 
 public record PseudoReferenceDto(String decryptedReferenceId, PseudoReferenceEntity pseudoReferenceEntity) {
 }

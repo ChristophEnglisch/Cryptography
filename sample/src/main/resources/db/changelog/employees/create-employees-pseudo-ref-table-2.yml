@@ -19,6 +19,6 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: crypted_timestamp
-                  type: varchar(255)
+                  type: timestamp
                   constraints:
                     nullable: false

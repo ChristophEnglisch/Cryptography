@@ -1,5 +1,6 @@
 package de.cenglisch.cryptography;
 
+import de.cenglisch.cryptography.dsgvo.DsgvoRelevant;
 import de.cenglisch.cryptography.pseudonymization.Pseudonymize;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package de.cenglisch.cryptography;
+package de.cenglisch.cryptography.dsgvo;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

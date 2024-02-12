@@ -3,7 +3,7 @@ POST http://localhost:8080/absences
 Content-Type: application/json
 
 {
-  "employeeId": "6f3bbab7-a468-433a-8261-005a3db05019",
+  "employeeId": "eb2c6e3f-d830-4bcc-bb60-10099ca86422",
   "typeOfAbsence": "VACATION"
 }
 
@@ -12,7 +12,7 @@ POST http://localhost:8080/absences
 Content-Type: application/json
 
 {
-  "employeeId": "6f3bbab7-a468-433a-8261-005a3db05019",
+  "employeeId": "eb2c6e3f-d830-4bcc-bb60-10099ca86422",
   "typeOfAbsence": "ILLNESS",
   "reason": "Magen Darm"
 }

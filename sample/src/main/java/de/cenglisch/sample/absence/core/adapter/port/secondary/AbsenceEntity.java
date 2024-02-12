@@ -1,6 +1,6 @@
 package de.cenglisch.sample.absence.core.adapter.port.secondary;
 
-import de.cenglisch.cryptography.DsgvoRelevant;
+import de.cenglisch.cryptography.dsgvo.DsgvoRelevant;
 import de.cenglisch.cryptography.pseudonymization.Pseudonymize;
 import de.cenglisch.sample.absence.core.domain.TypeOfAbsence;
 import de.cenglisch.sample.employees.core.adapter.port.secondary.database.EmployeeEntity;

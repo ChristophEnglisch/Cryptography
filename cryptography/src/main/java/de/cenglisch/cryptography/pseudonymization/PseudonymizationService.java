@@ -2,7 +2,6 @@ package de.cenglisch.cryptography.pseudonymization;
 
 import de.cenglisch.cryptography.CryptographyHelper;
 import de.cenglisch.cryptography.encryption.Encrypter;
-import de.cenglisch.cryptography.storage.Storage;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Service;
 

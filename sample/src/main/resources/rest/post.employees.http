@@ -9,6 +9,17 @@ Content-Type: application/json
   "role": "EMPLOYEE"
 }
 
+### Test 1 - Hire Employee with Valid Data
+POST http://localhost:8080/employees
+Content-Type: application/json
+
+{
+  "firstName": "Elias",
+  "lastName": "Kist",
+  "birthday": "1991-06-02",
+  "role": "BACK_OFFICE"
+}
+
 ### Test 2 - Hire Employee with Missing First Name
 POST http://localhost:8080/employees
 Content-Type: application/json

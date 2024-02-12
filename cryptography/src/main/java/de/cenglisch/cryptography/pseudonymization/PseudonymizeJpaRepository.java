@@ -1,4 +1,4 @@
-package de.cenglisch.cryptography.storage;
+package de.cenglisch.cryptography.pseudonymization;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

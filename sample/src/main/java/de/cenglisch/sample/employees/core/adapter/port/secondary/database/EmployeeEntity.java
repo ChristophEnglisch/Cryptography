@@ -1,6 +1,6 @@
 package de.cenglisch.sample.employees.core.adapter.port.secondary.database;
 
-import de.cenglisch.cryptography.DsgvoRelevant;
+import de.cenglisch.cryptography.dsgvo.DsgvoRelevant;
 import de.cenglisch.sample.common.domain.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

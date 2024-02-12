@@ -8,10 +8,10 @@ import java.util.Base64;
 @Configuration
 public class EncryptionConfig {
 
-    @Value("${app.encryption.key}")
+    @Value("${cryptography.encryption.key}")
     private String key;
 
-    @Value("${app.encryption.algorithm}")
+    @Value("${cryptography.encryption.algorithm}")
     private String encryptionAlgorithm;
 
     @Bean

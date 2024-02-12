@@ -1,4 +1,4 @@
-package de.cenglisch.cryptography.pseudonymization;
+package de.cenglisch.cryptography.dsgvo;
 
 import de.cenglisch.cryptography.CryptographyHelper;
 import de.cenglisch.cryptography.decryption.Decrypter;
@@ -8,11 +8,11 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 
 @Component
-public class DecryptionService {
+public class DsgvoDecryptionService {
     private final CryptographyHelper cryptographyHelper;
     private final Decrypter decrypter;
 
-    public DecryptionService(CryptographyHelper cryptographyHelper, Decrypter decrypter) {
+    public DsgvoDecryptionService(CryptographyHelper cryptographyHelper, Decrypter decrypter) {
         this.cryptographyHelper = cryptographyHelper;
         this.decrypter = decrypter;
     }
