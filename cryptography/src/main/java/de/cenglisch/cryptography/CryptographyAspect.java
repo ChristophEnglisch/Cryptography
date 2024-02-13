@@ -1,45 +1,38 @@
 package de.cenglisch.cryptography;
 
-import de.cenglisch.cryptography.dsgvo.DsgvoEncryptionService;
-import de.cenglisch.cryptography.dsgvo.DsgvoDecryptionService;
-import de.cenglisch.cryptography.pseudonymization.DissolvePseudonimizationService;
-import de.cenglisch.cryptography.pseudonymization.PseudonymizationService;
+import de.cenglisch.cryptography.processor.PostProcessor;
+import de.cenglisch.cryptography.processor.PreProcessor;
+import de.cenglisch.cryptography.processor.QueryProcessor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
+import java.util.Collection;
 
 @Aspect
 @Component
 public class CryptographyAspect {
 
-    private final PseudonymizationService pseudonymizationService;
-    private final DissolvePseudonimizationService dissolvePseudonimization;
-    private final DsgvoEncryptionService dsgvoEncryptionService;
-    private final DsgvoDecryptionService dsgvoDecryptionService;
+    private final QueryProcessor queryProcessor;
+    private final Collection<PreProcessor> preProcessors;
+    private final Collection<PostProcessor> postProcessors;
 
-    public CryptographyAspect(PseudonymizationService pseudonymizationService, DissolvePseudonimizationService dissolvePseudonimization, DsgvoEncryptionService dsgvoEncryptionService, DsgvoDecryptionService dsgvoDecryptionService) {
-        this.pseudonymizationService = pseudonymizationService;
-        this.dissolvePseudonimization = dissolvePseudonimization;
-        this.dsgvoEncryptionService = dsgvoEncryptionService;
-        this.dsgvoDecryptionService = dsgvoDecryptionService;
+    public CryptographyAspect(QueryProcessor queryProcessor, Collection<PreProcessor> preProcessors, Collection<PostProcessor> postProcessors) {
+        this.queryProcessor = queryProcessor;
+        this.preProcessors = preProcessors;
+        this.postProcessors = postProcessors;
     }
 
     @Before("execution(* org.springframework.data.repository.CrudRepository.save(..)) && args(entity)")
     public void preSave(Object entity) {
-        Arrays.stream(entity.getClass().getDeclaredFields())
-                .forEach(field -> {
-                    pseudonymizationService.processField(entity, field);
-                    dsgvoEncryptionService.processField(entity, field);
-                });
+        preProcessors.forEach(preProcessor -> preProcessor.processEntity(entity));
     }
 
 
     @Around("execution(* org.springframework.data.repository.Repository+.*(..)) && !execution(* org.springframework.data.repository.CrudRepository.save(..))")
     public Object preQueryReference(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-        return proceedingJoinPoint.proceed(pseudonymizationService.processQuery(
+        return proceedingJoinPoint.proceed(queryProcessor.processQuery(
                 proceedingJoinPoint.getArgs(),
                 (MethodSignature) proceedingJoinPoint.getSignature()
         ));
@@ -47,17 +40,13 @@ public class CryptographyAspect {
 
     @AfterReturning(pointcut = "execution(* org.springframework.data.repository.CrudRepository.save(..)) || execution(* org.springframework.data.repository.CrudRepository.findById(..))", returning = "result")
     public void postSingleObject(Object result) {
-        dissolvePseudonimization.processEntity(result);
-        dsgvoDecryptionService.processEntity(result);
+        postProcessors.forEach(postProcessor -> postProcessor.processEntity(result));
     }
 
     @AfterReturning(pointcut = "execution(* org.springframework.data.repository.Repository+.*(..)) && !execution(* org.springframework.data.repository.CrudRepository.save(..)) && !execution(* org.springframework.data.repository.CrudRepository.findById(..))", returning = "result")
     public void postProcessIterable(Object result) {
         if (result instanceof Iterable<?>) {
-            ((Iterable<?>) result).forEach(entity -> {
-                dissolvePseudonimization.processEntity(entity);
-                dsgvoDecryptionService.processEntity(entity);
-            });
+            ((Iterable<?>) result).forEach(entity -> postProcessors.forEach(postProcessor -> postProcessor.processEntity(entity)));
         }
     }
 }

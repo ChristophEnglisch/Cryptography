@@ -1,14 +1,14 @@
 package de.cenglisch.cryptography.dsgvo;
 
 import de.cenglisch.cryptography.CryptographyHelper;
+import de.cenglisch.cryptography.processor.PostProcessor;
 import de.cenglisch.cryptography.decryption.Decrypter;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
-@Component
-public class DsgvoDecryptionService {
+public class DsgvoDecryptionService implements PostProcessor {
     private final CryptographyHelper cryptographyHelper;
     private final Decrypter decrypter;
 
