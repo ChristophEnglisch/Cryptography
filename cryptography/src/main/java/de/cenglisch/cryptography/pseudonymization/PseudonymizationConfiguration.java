@@ -5,15 +5,16 @@ import de.cenglisch.cryptography.encryption.Encrypter;
 import de.cenglisch.cryptography.processor.PostProcessor;
 import de.cenglisch.cryptography.processor.PreProcessor;
 import de.cenglisch.cryptography.processor.QueryProcessor;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Optional;
-
 @Configuration
 public class PseudonymizationConfiguration {
+
+    private static final Logger log = LoggerFactory.getLogger(PseudonymizationConfiguration.class);
 
     private final CryptographyHelper cryptographyHelper;
     private final Storage storage;
@@ -26,28 +27,24 @@ public class PseudonymizationConfiguration {
     }
 
     @Bean
-    PseudonymizationService pseudonymizationService() {
+    public PseudonymizationService pseudonymizationService() {
         return new PseudonymizationService(cryptographyHelper, storage, encrypter);
     }
 
     @Bean
-    QueryProcessor queryProcessor() {
+    public QueryProcessor queryProcessor() {
         return pseudonymizationService();
     }
 
     @Bean
-    Optional<PreProcessor> pseudonymizationPreProcessor(@Value("${cryptography.pseudonymize.active}") boolean isActive) {
-        if (!isActive) {
-            return Optional.empty();
-        }
-        return Optional.of(pseudonymizationService());
+    @ConditionalOnProperty(name = "cryptography.pseudonymize.active", havingValue = "true")
+    public PreProcessor pseudonymizationPreProcessor() {
+        return pseudonymizationService();
     }
 
     @Bean
-    Optional<PostProcessor> pseudonymizationPostProcessor(@Value("${cryptography.pseudonymize.active}") boolean isActive) {
-        if (!isActive) {
-            return Optional.empty();
-        }
-        return Optional.of(new DissolvePseudonimizationService(cryptographyHelper, storage));
+    @ConditionalOnProperty(name = "cryptography.pseudonymize.active", havingValue = "true")
+    public PostProcessor pseudonymizationPostProcessor() {
+        return new DissolvePseudonimizationService(cryptographyHelper, storage);
     }
 }
