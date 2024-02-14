@@ -1,13 +1,14 @@
 package de.cenglisch.cryptography.dsgvo;
 
 import de.cenglisch.cryptography.CryptographyHelper;
+import de.cenglisch.cryptography.processor.PreProcessor;
 import de.cenglisch.cryptography.encryption.Encrypter;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 
-@Component
-public class DsgvoEncryptionService {
+public class DsgvoEncryptionService implements PreProcessor {
 
     private final CryptographyHelper cryptographyHelper;
     private final Encrypter encrypter;
@@ -17,7 +18,12 @@ public class DsgvoEncryptionService {
         this.encrypter = encrypter;
     }
 
-    public void processField(Object entity, Field field) {
+    public void processEntity(Object entity) {
+        Arrays.stream(entity.getClass().getDeclaredFields())
+                .forEach(field -> processField(entity, field));
+    }
+
+    private void processField(Object entity, Field field) {
         if (!cryptographyHelper.fieldIsDsgvoRelevant(field)) {
             return;
         }

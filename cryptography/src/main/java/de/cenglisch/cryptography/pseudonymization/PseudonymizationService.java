@@ -1,6 +1,8 @@
 package de.cenglisch.cryptography.pseudonymization;
 
 import de.cenglisch.cryptography.CryptographyHelper;
+import de.cenglisch.cryptography.processor.PreProcessor;
+import de.cenglisch.cryptography.processor.QueryProcessor;
 import de.cenglisch.cryptography.encryption.Encrypter;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Service;
@@ -10,8 +12,7 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Optional;
 
-@Service
-public class PseudonymizationService {
+public class PseudonymizationService implements PreProcessor, QueryProcessor {
     private final CryptographyHelper cryptographyHelper;
     private final Storage storage;
     private final Encrypter encrypter;
@@ -39,7 +40,12 @@ public class PseudonymizationService {
         return args;
     }
 
-    public void processField(Object entity, Field field) {
+    public void processEntity(Object entity) {
+        Arrays.stream(entity.getClass().getDeclaredFields())
+                .forEach(field -> processField(entity, field));
+    }
+
+    private void processField(Object entity, Field field) {
         if (!cryptographyHelper.fieldMustBePseudomized(field)) {
             return;
         }
@@ -57,7 +63,7 @@ public class PseudonymizationService {
         );
     }
 
-    public String determinePseudomizedId(Class<?> referencedEntity, String referenceId) {
+    private String determinePseudomizedId(Class<?> referencedEntity, String referenceId) {
         if (!storage.hasReference(referencedEntity, referenceId)) {
             storage.save(referencedEntity, referenceId, encrypter.encrypter(referenceId));
         }

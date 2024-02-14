@@ -14,9 +14,6 @@ Aktuell ist es nur möglich string values zu ver und entschlüsseln
 Testfälle schreiben
 Testen der Application mit deaktivierung der Pseudonymisierung
 
-
-## Nice to have:
-
 Verschlüsselung erneuern, wenn timestamp abgelaufen
 alle möglichen datentypen für die reference id erlauben, bisher nur für string möglich
 Loslösung als Libary

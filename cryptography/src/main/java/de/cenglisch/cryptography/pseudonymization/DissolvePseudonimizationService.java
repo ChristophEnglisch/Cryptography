@@ -1,13 +1,13 @@
 package de.cenglisch.cryptography.pseudonymization;
 
 import de.cenglisch.cryptography.CryptographyHelper;
+import de.cenglisch.cryptography.processor.PostProcessor;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
-@Service
-public class DissolvePseudonimizationService {
+public class DissolvePseudonimizationService implements PostProcessor {
     private final CryptographyHelper cryptographyHelper;
     private final Storage storage;
 
