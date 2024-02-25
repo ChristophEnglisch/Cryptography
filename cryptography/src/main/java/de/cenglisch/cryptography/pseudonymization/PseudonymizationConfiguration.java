@@ -1,6 +1,6 @@
 package de.cenglisch.cryptography.pseudonymization;
 
-import de.cenglisch.cryptography.CryptographyHelper;
+import de.cenglisch.cryptography.ReflectionHelper;
 import de.cenglisch.cryptography.encryption.Encrypter;
 import de.cenglisch.cryptography.processor.PostProcessor;
 import de.cenglisch.cryptography.processor.PreProcessor;
@@ -16,19 +16,19 @@ public class PseudonymizationConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(PseudonymizationConfiguration.class);
 
-    private final CryptographyHelper cryptographyHelper;
-    private final Storage storage;
+    private final ReflectionHelper reflectionHelper;
+    private final PseudonymizationStorage pseudonymizationStorage;
     private final Encrypter encrypter;
 
-    public PseudonymizationConfiguration(CryptographyHelper cryptographyHelper, Storage storage, Encrypter encrypter) {
-        this.cryptographyHelper = cryptographyHelper;
-        this.storage = storage;
+    public PseudonymizationConfiguration(ReflectionHelper reflectionHelper, PseudonymizationStorage pseudonymizationStorage, Encrypter encrypter) {
+        this.reflectionHelper = reflectionHelper;
+        this.pseudonymizationStorage = pseudonymizationStorage;
         this.encrypter = encrypter;
     }
 
     @Bean
-    public PseudonymizationService pseudonymizationService() {
-        return new PseudonymizationService(cryptographyHelper, storage, encrypter);
+    public PseudonymizationPreProcessor pseudonymizationService() {
+        return new PseudonymizationPreProcessor(reflectionHelper, pseudonymizationStorage, encrypter);
     }
 
     @Bean
@@ -45,6 +45,6 @@ public class PseudonymizationConfiguration {
     @Bean
     @ConditionalOnProperty(name = "cryptography.pseudonymize.active", havingValue = "true")
     public PostProcessor pseudonymizationPostProcessor() {
-        return new DissolvePseudonimizationService(cryptographyHelper, storage);
+        return new PseudonimizationPostProcessor(reflectionHelper, pseudonymizationStorage);
     }
 }

@@ -1,6 +1,6 @@
 package de.cenglisch.cryptography;
 
-import de.cenglisch.cryptography.dsgvo.DsgvoRelevant;
+import de.cenglisch.cryptography.gdpr.GdprRelevant;
 import de.cenglisch.cryptography.pseudonymization.Pseudonymize;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 import java.util.Optional;
 
 @Component
-public class CryptographyHelper {
+public class ReflectionHelper {
     public Optional<String> determineFieldValue(Object object, Field field) {
         try {
             Method getterMethod = object.getClass().getMethod(determineGetterMethodName(field));
@@ -24,8 +24,8 @@ public class CryptographyHelper {
         return field.isAnnotationPresent(Pseudonymize.class);
     }
 
-    public boolean fieldIsDsgvoRelevant(Field field) {
-        return field.isAnnotationPresent(DsgvoRelevant.class);
+    public boolean fieldIsGdprRelevant(Field field) {
+        return field.isAnnotationPresent(GdprRelevant.class);
     }
 
     public Class<?> determineReferencedEntity(Field field) {

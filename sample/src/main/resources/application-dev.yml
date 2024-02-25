@@ -10,5 +10,5 @@ cryptography:
     algorithm: AES-GCM
   pseudonymize:
     active: true
-  dsgvo-encryption:
+  gdpr-encryption:
     active: true

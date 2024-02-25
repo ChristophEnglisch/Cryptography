@@ -33,4 +33,9 @@ public class AbsenceRestAdapter {
     public Collection<AbsenceResponse> getByEmployeeId(@RequestParam("employee-id") String employeeId) {
         return absenceRepository.findByEmployeeId(new EmployeeId(employeeId)).stream().map(AbsenceResponse::of).toList();
     }
+
+    @DeleteMapping(params = "employee-id")
+    public void deleteByEmployeeId(@RequestParam("employee-id") String employeeId) {
+        absenceRepository.deleteByEmployeeId(new EmployeeId(employeeId));
+    }
 }

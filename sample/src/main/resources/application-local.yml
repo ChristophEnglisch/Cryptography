@@ -9,6 +9,6 @@ cryptography:
     key: wHMNHGqMwXu9w6PieCxripiJIhcGMySwMgbBop991HU
     algorithm: AES-GCM
   pseudonymize:
-    active: true{
-  dsgvo-encryption:
+    active: true
+  gdpr-encryption:
     active: true

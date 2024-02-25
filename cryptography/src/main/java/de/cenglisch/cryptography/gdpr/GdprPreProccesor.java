@@ -1,20 +1,19 @@
-package de.cenglisch.cryptography.dsgvo;
+package de.cenglisch.cryptography.gdpr;
 
-import de.cenglisch.cryptography.CryptographyHelper;
+import de.cenglisch.cryptography.ReflectionHelper;
 import de.cenglisch.cryptography.processor.PreProcessor;
 import de.cenglisch.cryptography.encryption.Encrypter;
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
-public class DsgvoEncryptionService implements PreProcessor {
+public class GdprPreProccesor implements PreProcessor {
 
-    private final CryptographyHelper cryptographyHelper;
+    private final ReflectionHelper reflectionHelper;
     private final Encrypter encrypter;
 
-    public DsgvoEncryptionService(CryptographyHelper cryptographyHelper, Encrypter encrypter) {
-        this.cryptographyHelper = cryptographyHelper;
+    public GdprPreProccesor(ReflectionHelper reflectionHelper, Encrypter encrypter) {
+        this.reflectionHelper = reflectionHelper;
         this.encrypter = encrypter;
     }
 
@@ -24,12 +23,12 @@ public class DsgvoEncryptionService implements PreProcessor {
     }
 
     private void processField(Object entity, Field field) {
-        if (!cryptographyHelper.fieldIsDsgvoRelevant(field)) {
+        if (!reflectionHelper.fieldIsGdprRelevant(field)) {
             return;
         }
 
-        cryptographyHelper.determineFieldValue(entity, field).ifPresent(
-          fieldValue -> cryptographyHelper.fieldSetValue(
+        reflectionHelper.determineFieldValue(entity, field).ifPresent(
+          fieldValue -> reflectionHelper.fieldSetValue(
             entity,
             field,
             encrypter.encrypter(fieldValue)

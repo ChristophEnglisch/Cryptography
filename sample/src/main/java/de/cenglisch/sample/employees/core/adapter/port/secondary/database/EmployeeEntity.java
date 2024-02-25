@@ -1,6 +1,6 @@
 package de.cenglisch.sample.employees.core.adapter.port.secondary.database;
 
-import de.cenglisch.cryptography.dsgvo.DsgvoRelevant;
+import de.cenglisch.cryptography.gdpr.GdprRelevant;
 import de.cenglisch.sample.common.domain.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,11 +19,11 @@ import java.time.LocalDate;
 public class EmployeeEntity {
     @Id
     private String id;
-    @DsgvoRelevant
+    @GdprRelevant
     private String firstName;
-    @DsgvoRelevant
+    @GdprRelevant
     private String lastName;
-    //@DsgvoRelevant
+    //@GdprRelevant
     private LocalDate birthday;
     @Enumerated(EnumType.STRING)
     private Role role;

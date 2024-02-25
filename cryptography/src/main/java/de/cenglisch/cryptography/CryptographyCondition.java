@@ -11,15 +11,15 @@ public class CryptographyCondition implements Condition {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CryptographyCondition.class);
 
-    @Value("${cryptography.dsgvo-encryption.active}")
-    private boolean dsgvoEncryptionIsActive;
+    @Value("${cryptography.gdpr-encryption.active}")
+    private boolean gdprEncryptionIsActive;
 
     @Value("${cryptography.pseudonymize.active}")
     private boolean pseudonymizationIsActive;
 
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        LOGGER.info("DSGVO-ENCRYPTION: {}, PSEUDONYMIZATION: {}", dsgvoEncryptionIsActive, pseudonymizationIsActive);
-        return dsgvoEncryptionIsActive || pseudonymizationIsActive;
+        LOGGER.info("gdpr-encryption: {}, PSEUDONYMIZATION: {}", gdprEncryptionIsActive, pseudonymizationIsActive);
+        return gdprEncryptionIsActive || pseudonymizationIsActive;
     }
 }

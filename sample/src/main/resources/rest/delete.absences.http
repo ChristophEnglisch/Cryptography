@@ -1,0 +1,1 @@
+DELETE http://localhost:8080/absences?employee-id=eb2c6e3f-d830-4bcc-bb60-10099ca86422

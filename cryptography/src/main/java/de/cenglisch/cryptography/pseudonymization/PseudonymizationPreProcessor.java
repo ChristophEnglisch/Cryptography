@@ -1,25 +1,24 @@
 package de.cenglisch.cryptography.pseudonymization;
 
-import de.cenglisch.cryptography.CryptographyHelper;
+import de.cenglisch.cryptography.ReflectionHelper;
 import de.cenglisch.cryptography.processor.PreProcessor;
 import de.cenglisch.cryptography.processor.QueryProcessor;
 import de.cenglisch.cryptography.encryption.Encrypter;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.stereotype.Service;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Optional;
 
-public class PseudonymizationService implements PreProcessor, QueryProcessor {
-    private final CryptographyHelper cryptographyHelper;
-    private final Storage storage;
+public class PseudonymizationPreProcessor implements PreProcessor, QueryProcessor {
+    private final ReflectionHelper reflectionHelper;
+    private final PseudonymizationStorage pseudonymizationStorage;
     private final Encrypter encrypter;
 
-    public PseudonymizationService(CryptographyHelper cryptographyHelper, Storage storage, Encrypter encrypter) {
-        this.cryptographyHelper = cryptographyHelper;
-        this.storage = storage;
+    public PseudonymizationPreProcessor(ReflectionHelper reflectionHelper, PseudonymizationStorage pseudonymizationStorage, Encrypter encrypter) {
+        this.reflectionHelper = reflectionHelper;
+        this.pseudonymizationStorage = pseudonymizationStorage;
         this.encrypter = encrypter;
     }
 
@@ -46,17 +45,17 @@ public class PseudonymizationService implements PreProcessor, QueryProcessor {
     }
 
     private void processField(Object entity, Field field) {
-        if (!cryptographyHelper.fieldMustBePseudomized(field)) {
+        if (!reflectionHelper.fieldMustBePseudomized(field)) {
             return;
         }
 
 
-        cryptographyHelper.determineFieldValue(entity, field).ifPresent(
-                fieldValue -> cryptographyHelper.fieldSetValue(
+        reflectionHelper.determineFieldValue(entity, field).ifPresent(
+                fieldValue -> reflectionHelper.fieldSetValue(
                         entity,
                         field,
                         determinePseudomizedId(
-                                cryptographyHelper.determineReferencedEntity(field),
+                                reflectionHelper.determineReferencedEntity(field),
                                 fieldValue
                         )
                 )
@@ -64,11 +63,11 @@ public class PseudonymizationService implements PreProcessor, QueryProcessor {
     }
 
     private String determinePseudomizedId(Class<?> referencedEntity, String referenceId) {
-        if (!storage.hasReference(referencedEntity, referenceId)) {
-            storage.save(referencedEntity, referenceId, encrypter.encrypter(referenceId));
+        if (!pseudonymizationStorage.hasReference(referencedEntity, referenceId)) {
+            pseudonymizationStorage.save(referencedEntity, referenceId, encrypter.encrypter(referenceId));
         }
 
-        return storage.getByReferenceId(referencedEntity, referenceId)
+        return pseudonymizationStorage.getByReferenceId(referencedEntity, referenceId)
                 .orElseThrow(RuntimeException::new)
                 .pseudoReferenceEntity()
                 .getId();

@@ -1,5 +1,6 @@
 package de.cenglisch.cryptography;
 
+import de.cenglisch.cryptography.configuration.ConfigurationVerifier;
 import de.cenglisch.cryptography.processor.PostProcessor;
 import de.cenglisch.cryptography.processor.PreProcessor;
 import de.cenglisch.cryptography.processor.QueryProcessor;
@@ -24,8 +25,8 @@ public class CryptographyConfiguration {
     public CryptographyAspect cryptographyAspect(
             @Autowired(required = false) @Qualifier("pseudonymizationPreProcessor") PreProcessor pseudonymizationPreProcessor,
             @Autowired(required = false) @Qualifier("pseudonymizationPostProcessor") PostProcessor pseudonymizationPostProcessor,
-            @Autowired(required = false) @Qualifier("dsgvoPreProcessor") PreProcessor dsgvoPreProcessor,
-            @Autowired(required = false) @Qualifier("dsgvoPostProcessor") PostProcessor dsgvoPostProcessor
+            @Autowired(required = false) @Qualifier("gdprPreProcessor") PreProcessor gdprPreProcessor,
+            @Autowired(required = false) @Qualifier("gdprPostProcessor") PostProcessor gdprPostProcessor
     ) {
         final List<PreProcessor> preProcessors = new ArrayList<>();
         final List<PostProcessor> postProcessors = new ArrayList<>();
@@ -36,11 +37,11 @@ public class CryptographyConfiguration {
         if (pseudonymizationPostProcessor != null) {
             postProcessors.add(pseudonymizationPostProcessor);
         }
-        if (dsgvoPreProcessor != null) {
-            preProcessors.add(dsgvoPreProcessor);
+        if (gdprPreProcessor != null) {
+            preProcessors.add(gdprPreProcessor);
         }
-        if (dsgvoPostProcessor != null) {
-            postProcessors.add(dsgvoPostProcessor);
+        if (gdprPostProcessor != null) {
+            postProcessors.add(gdprPostProcessor);
         }
 
         return new CryptographyAspect(queryProcessor, preProcessors, postProcessors);

@@ -1,6 +1,5 @@
 package de.cenglisch.sample.absence.core.domain;
 
-import de.cenglisch.sample.absence.core.adapter.port.primary.rest.AbsenceResponse;
 import de.cenglisch.sample.employees.api.domain.EmployeeId;
 
 import java.util.Collection;

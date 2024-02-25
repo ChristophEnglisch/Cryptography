@@ -1,6 +1,6 @@
 package de.cenglisch.sample.absence.core.adapter.port.secondary;
 
-import de.cenglisch.cryptography.dsgvo.DsgvoRelevant;
+import de.cenglisch.cryptography.gdpr.GdprRelevant;
 import de.cenglisch.cryptography.pseudonymization.Pseudonymize;
 import de.cenglisch.sample.absence.core.domain.TypeOfAbsence;
 import de.cenglisch.sample.employees.core.adapter.port.secondary.database.EmployeeEntity;
@@ -23,6 +23,6 @@ public class AbsenceEntity {
     private String employeeId;
     @Enumerated(EnumType.STRING)
     private TypeOfAbsence typeOfAbsence;
-    @DsgvoRelevant
+    @GdprRelevant
     private String reason;
 }

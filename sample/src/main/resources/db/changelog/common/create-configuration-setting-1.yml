@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-databasepseudonimization-1
-      author: application
+      id: create-configuration-setting-1
+      author: cenglisch
       changes:
         - createTable:
-            tableName: databasepseudonimization
+            tableName: configuration_setting
             columns:
               - column:
                   name: id
@@ -13,5 +13,5 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: is_pseudonimized
-                  type: tinyint(1)
+                  name: value
+                  type: varchar(255)

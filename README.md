@@ -1,21 +1,51 @@
-
-In der Datenbank sollte gespeichert werden, ob sie verschlüsselt ist oder nicht. Dann muss geprüft werden ob die Anwendung im richtigen Modus gestartet wurde
-Beim starten der Anwendung soll geprüft werden, ob es Annotations Conflicts gibt(einem Field sind die Annotations Pseudomize und DsgvoRelevant zugeordnet)
-PseudonymizeCondition wieder einbauen
-
-## Lasttests
-    Nach implementierung des Lasttests soll ein Caching für die Encryption und Decryption entwickelt werden.
-    Storage initalizer so implementieren, dass dieser nur begrentzt einträge speichert, damit hier der heap nicht volläuft
-
-## After Lasttests
-Aktuell ist es nur möglich string values zu ver und entschlüsseln
+# TODOs
+## Implementierungen
+* Datentypunabhängige Pseudonimiserung
+* Datentypunabhängige Ver- und Entschlüsselung
+* Caching für Encryption und Decryption implementieren
+* Storage Einträge limitieren (`PseudonymizationStorageInitalizer` so implementieren, dass dieser nur begrenzt einträge speichert, damit hier der heap nicht vollläuft)
 
 ## Tests
-Testfälle schreiben
-Testen der Application mit deaktivierung der Pseudonymisierung
+* Testen der Application mit deaktivierung der Pseudonymisierung
+* Unittests
+* Integrationstests
 
-Verschlüsselung erneuern, wenn timestamp abgelaufen
-alle möglichen datentypen für die reference id erlauben, bisher nur für string möglich
-Loslösung als Libary
-Doku
-Ermöglichen Custom Encrypter und Decrypter zu implementieren und verwenden
+# Nice To Have
+* Re-keying implementieren
+* Ermöglichen Custom Encrypter und Decrypter zu implementieren und verwenden
+* Pseudo-Referenzhandling für `@OneToMany` & `@ManyToMany`
+
+
+# Known issues
+* Entity Detection funktioniert nicht richtig: `@EntityScans` müssen definiert werden
+
+---
+
+# Doku
+
+# Verschlüsselung
+## Unterstütze Datentypen
+Bisher sind folgende Datentypen unterstützt.
+* String
+
+Damit Columns richtig verschlüsselt werden können, müssen die Datenbankspalten den Typ `varchar` haben.
+
+## Verschlüsselungsmethoden und Datenbankspaltenlänge
+Durch die Verschlüsselung vergrößert sich der zu speichernde Wert. Das resultat der maximalen gesamtlänge kann aus folgender Formel kalkuliert werden.
+```
+n = Zeichenlänge des zu verschlüsselnden Werts
+Maximale Länge = (n + 12 + 16) * (4/3)
+```
+Bei einer eingabe von 50 Zeichen resultieren daraus maximal 104 Zeichen
+`104 = (50 + 12 + 16) * (4/3)`
+
+# Pseudonymisierung
+
+## One to Many
+
+## Many to Many
+
+## Unterstütze Datentypen
+Bisher sind folgende Datentypen unterstützt.
+* String
+

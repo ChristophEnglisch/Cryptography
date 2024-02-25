@@ -3,6 +3,7 @@ package de.cenglisch.sample.absence.core.adapter.port.secondary;
 import de.cenglisch.sample.absence.core.domain.Absence;
 import de.cenglisch.sample.absence.core.domain.AbsenceRepository;
 import de.cenglisch.sample.employees.api.domain.EmployeeId;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +34,7 @@ public class AbsencePersistenceAdapter implements AbsenceRepository {
     }
 
     @Override
+    @Transactional
     public void deleteByEmployeeId(EmployeeId employeeId) {
         absenceJpaRepository.deleteByEmployeeId(employeeId.id());
     }

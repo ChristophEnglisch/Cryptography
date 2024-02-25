@@ -12,13 +12,16 @@ import org.springframework.transaction.support.TransactionTemplate;
 import java.util.Collection;
 
 @Component
-public class PseudonymizeJpaRepository {
+public class PseudoReferenceRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Autowired
-    private PlatformTransactionManager transactionManager;
+    private final PlatformTransactionManager transactionManager;
+
+    public PseudoReferenceRepository(PlatformTransactionManager transactionManager) {
+        this.transactionManager = transactionManager;
+    }
 
     public PseudoReferenceEntity save(Class<?> entityClass, String cryptedValue) {
         TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);

@@ -11,9 +11,7 @@ import java.util.UUID;
 public class PseudoReferenceEntity {
     @Id
     private String id;
-
     private String pseudonymizedReference;
-
     private LocalDateTime cryptedTimestamp;
 
     public PseudoReferenceEntity() {

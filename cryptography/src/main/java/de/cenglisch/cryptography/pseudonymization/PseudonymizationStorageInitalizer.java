@@ -3,25 +3,25 @@ package de.cenglisch.cryptography.pseudonymization;
 import de.cenglisch.cryptography.decryption.Decrypter;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Component
-public class StorageInitalizer {
+public class PseudonymizationStorageInitalizer {
 
-    private final PseudonymizeJpaRepository pseudonymizeJpaRepository;
+    private final PseudoReferenceRepository pseudoReferenceRepository;
     private final Decrypter decrypter;
 
-    public StorageInitalizer(PseudonymizeJpaRepository pseudonymizeJpaRepository, Decrypter decrypter) {
-        this.pseudonymizeJpaRepository = pseudonymizeJpaRepository;
+    public PseudonymizationStorageInitalizer(PseudoReferenceRepository pseudoReferenceRepository, Decrypter decrypter) {
+        this.pseudoReferenceRepository = pseudoReferenceRepository;
         this.decrypter = decrypter;
     }
 
     public Collection<PseudoReferenceDto> initalize(Class<?> entityClass) {
-        return pseudonymizeJpaRepository.findAll(entityClass)
+        return pseudoReferenceRepository.findAll(entityClass)
                 .stream()
                 .map(entity -> new PseudoReferenceDto(decrypter.decrypt(entity.getPseudonymizedReference()), entity))
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(ArrayList::new));
     }
-
 }
