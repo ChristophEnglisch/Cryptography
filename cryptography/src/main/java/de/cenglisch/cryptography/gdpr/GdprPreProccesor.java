@@ -1,8 +1,8 @@
 package de.cenglisch.cryptography.gdpr;
 
 import de.cenglisch.cryptography.ReflectionHelper;
-import de.cenglisch.cryptography.processor.PreProcessor;
 import de.cenglisch.cryptography.encryption.Encrypter;
+import de.cenglisch.cryptography.processor.PreProcessor;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -28,7 +28,7 @@ public class GdprPreProccesor implements PreProcessor {
         }
 
         reflectionHelper.determineFieldValue(entity, field).ifPresent(
-          fieldValue -> reflectionHelper.fieldSetValue(
+                fieldValue -> reflectionHelper.fieldSetValue(
             entity,
             field,
             encrypter.encrypter(fieldValue)

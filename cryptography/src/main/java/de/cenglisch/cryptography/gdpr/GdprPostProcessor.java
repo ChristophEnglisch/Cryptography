@@ -1,8 +1,8 @@
 package de.cenglisch.cryptography.gdpr;
 
 import de.cenglisch.cryptography.ReflectionHelper;
-import de.cenglisch.cryptography.processor.PostProcessor;
 import de.cenglisch.cryptography.decryption.Decrypter;
+import de.cenglisch.cryptography.processor.PostProcessor;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;

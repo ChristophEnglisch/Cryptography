@@ -1,9 +1,9 @@
 package de.cenglisch.cryptography.pseudonymization;
 
 import de.cenglisch.cryptography.ReflectionHelper;
+import de.cenglisch.cryptography.encryption.Encrypter;
 import de.cenglisch.cryptography.processor.PreProcessor;
 import de.cenglisch.cryptography.processor.QueryProcessor;
-import de.cenglisch.cryptography.encryption.Encrypter;
 import org.aspectj.lang.reflect.MethodSignature;
 
 import java.lang.annotation.Annotation;

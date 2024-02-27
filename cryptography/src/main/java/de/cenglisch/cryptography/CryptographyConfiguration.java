@@ -1,6 +1,5 @@
 package de.cenglisch.cryptography;
 
-import de.cenglisch.cryptography.configuration.ConfigurationVerifier;
 import de.cenglisch.cryptography.processor.PostProcessor;
 import de.cenglisch.cryptography.processor.PreProcessor;
 import de.cenglisch.cryptography.processor.QueryProcessor;

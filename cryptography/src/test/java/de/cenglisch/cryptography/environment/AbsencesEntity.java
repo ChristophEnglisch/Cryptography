@@ -2,7 +2,8 @@ package de.cenglisch.cryptography.environment;
 
 import de.cenglisch.cryptography.gdpr.GdprRelevant;
 import de.cenglisch.cryptography.pseudonymization.Pseudonymize;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
 public class AbsencesEntity {
