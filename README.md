@@ -4,7 +4,6 @@
 
 * Datentypunabhängige Pseudonimiserung
 * Datentypunabhängige Ver- und Entschlüsselung
-* Caching für Encryption und Decryption implementieren
 * Storage Einträge limitieren (`PseudonymizationStorageInitalizer` so implementieren, dass dieser nur begrenzt einträge
   speichert, damit hier der heap nicht vollläuft)
 
@@ -18,7 +17,7 @@
 
 * Re-keying implementieren
 * Ermöglichen Custom Encrypter und Decrypter zu implementieren und verwenden
-* Pseudo-Referenzhandling für `@OneToMany` & `@ManyToMany`
+* Pseudo-Referenzhandling für `@OneToOne` & `@OneToMany` & `@ManyToMany`
 
 # Known issues
 
