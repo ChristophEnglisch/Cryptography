@@ -14,7 +14,10 @@ public class PseudonymizationStorage {
     private final PseudonymizationStorageInitalizer pseudonymizationStorageInitalizer;
     private final Map<Class<?>, Collection<PseudoReferenceDto>> store = new ConcurrentHashMap<>();
 
-    public PseudonymizationStorage(PseudoReferenceRepository pseudoReferenceRepository, PseudonymizationStorageInitalizer pseudonymizationStorageInitalizer) {
+    public PseudonymizationStorage(
+      PseudoReferenceRepository pseudoReferenceRepository,
+      PseudonymizationStorageInitalizer pseudonymizationStorageInitalizer
+    ) {
         this.pseudoReferenceRepository = pseudoReferenceRepository;
         this.pseudonymizationStorageInitalizer = pseudonymizationStorageInitalizer;
     }

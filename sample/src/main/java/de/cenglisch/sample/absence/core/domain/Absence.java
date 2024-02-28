@@ -4,7 +4,6 @@ import de.cenglisch.sample.common.domain.Entity;
 import de.cenglisch.sample.employees.api.domain.EmployeeId;
 import lombok.Getter;
 import org.jmolecules.ddd.annotation.AggregateRoot;
-import org.jmolecules.ddd.annotation.Identity;
 
 @AggregateRoot
 @Getter

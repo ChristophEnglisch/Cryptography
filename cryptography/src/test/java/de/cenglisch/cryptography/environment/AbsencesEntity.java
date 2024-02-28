@@ -4,8 +4,10 @@ import de.cenglisch.cryptography.gdpr.GdprRelevant;
 import de.cenglisch.cryptography.pseudonymization.Pseudonymize;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "absences")
 public class AbsencesEntity {
     @Id
     private String id;

@@ -49,7 +49,6 @@ public class PseudonymizationPreProcessor implements PreProcessor, QueryProcesso
             return;
         }
 
-
         reflectionHelper.determineFieldValue(entity, field).ifPresent(
                 fieldValue -> reflectionHelper.fieldSetValue(
                         entity,
