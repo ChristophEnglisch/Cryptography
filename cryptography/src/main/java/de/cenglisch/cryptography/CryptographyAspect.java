@@ -24,7 +24,11 @@ public class CryptographyAspect {
     private final Collection<PreProcessor> preProcessors;
     private final Collection<PostProcessor> postProcessors;
 
-    public CryptographyAspect(QueryProcessor queryProcessor, Collection<PreProcessor> preProcessors, Collection<PostProcessor> postProcessors) {
+    public CryptographyAspect(
+      QueryProcessor queryProcessor,
+      Collection<PreProcessor> preProcessors,
+      Collection<PostProcessor> postProcessors
+    ) {
         this.queryProcessor = queryProcessor;
         this.preProcessors = preProcessors;
         this.postProcessors = postProcessors;
