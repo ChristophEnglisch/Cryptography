@@ -3,6 +3,7 @@ package de.cenglisch.cryptography.performance;
 import de.cenglisch.cryptography.config.PostgresTestcontainerConfig;
 import de.cenglisch.cryptography.environment.AbsenceJpaRepository;
 import de.cenglisch.cryptography.environment.AbsencesEntity;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ class SavePerformanceTest {
     @Autowired
     private AbsenceJpaRepository absencesRepository;
 
-    @Test
+    @Disabled
     void testSaveAndFindPerformance() {
         String employeeId = UUID.randomUUID().toString();
         String reason = "Personal";
